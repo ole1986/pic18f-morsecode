@@ -1,9 +1,22 @@
 # PIC18F Morse code serial example
 
-This example is used to send data through UART using pin 18 and 17 (RX,TX) and translate it into morse codes.
-Once the submitted string ends with a "\n" or "\r" the magic starts on pin 6 (RA4)
+This example program demostrates how to use a pic18f26K20 to send data through UART using pin 18 and 17 (RX,TX) and translate it into morse codes.
 
-In addition to this the serial port will return the morse codes as string ("." for short / "-" for long)
+Once an ASCII text (E.g. "SOS\n") is submitted over serial the controller translates the input into morse codes on pin 6 (RA4).
+In addition to this the serial port will receive the morse codes from the controller ("." for short / "-" for long).
+
+```
+Welcome to minicom 2.7.1
+
+OPTIONS: I18n 
+Compiled on Aug 13 2017, 15:25:34.
+Port /dev/serial0, 21:00:01
+
+Press CTRL-A Z for help on special keys
+
+sos
+...---... (sos) 
+```
 
 ## Hardware requirements
 

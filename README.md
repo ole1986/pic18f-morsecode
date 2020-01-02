@@ -1,4 +1,4 @@
-# PIC18F Morse code serial example
+# PIC18F morse code serial example
 
 This example program demostrates how to use a pic18f26K20 to send data through UART using pin 18 and 17 (RX,TX) and translate it into morse codes.
 
@@ -46,10 +46,9 @@ To build pickle on your Raspberry Pi, please follow the installation instruction
 
 To program the firmware onto your controller, all previous steps are necessary.
 
-Download the latest morsecode firmware located in `dist/XC8_18F87K22_BUILD/production/pic18f16K20.X.production.hex` with your raspberry pi
-into your favorite folder.
+Download the latest morsecode firmware [from here](https://github.com/ole1986/pic18f-morsecode/raw/master/dist/XC8_18F87K22_BUILD/production/pic18f16K20.X.production.hex) with your raspberry pi.
 
-Add a .pickle file into the same folder with the following content
+Add a ".pickle" file into the same folder with the following content
 
 ```
 DEVICE=RPI2
@@ -67,7 +66,7 @@ PGD=24
 DEBUG=0
 ```
 
-Install the firmware from your RPi using the following pickle command
+Install the firmware using pickle command "p16" from your RPi
 
 ```
 p16 program pic18f16K20.X.production.hex

@@ -23,10 +23,9 @@ sos
 * 1x PIC18F controller (E.g. PIC18F26K20) or any other compatible chip
 * 1x Raspberry Pi
 * 1x Breadboard
-* 8x male/female jumper wires (RPi -> Breadboard)
-* 7x male/male jumper wires (Breadboard)
-* 4x Resistors (470 R)
-* 3x Resistors (10 K)
+* 4x male/female jumper wires (RPi -> Breadboard)
+* 4x male/male jumper wires (Breadboard)
+* 2x Resistors (10 K)
 * 1x LED
 
 ## Software requirements
@@ -36,7 +35,40 @@ sos
 
 ## Pinout (RPi)
 
-Please follow the instruction from [pickle project page](https://wiki.kewl.org/dokuwiki/boards:rpi) to properly setup the GPIO pinout.
+Use the below pinout to connect controllers serial port to the RPi
+
+**This applies only to PIC18F26K20 - Other chips may be differenty**
+
+[PIC18F26K20 Datasheet](http://ww1.microchip.com/downloads/en/DeviceDoc/40001303H.pdf)
+
+```
+R-PI                              PICMicro       GPIO header     .pickle
+====                              ========       ===========     =======
+3V3-------------------------------VDD--+         PIN 1 (P1-01)
+                                       |
+GND-------------------------------VSS  R1        PIN 19
+                                       |
+                                  VPP--+         PIN 7           VPP=4
+                                  RA4--+         PIN 6
+                                       |
+                                       R1
+                                       |
+                                       LED
+                                       |
+                                      ///
+GPIO14----------------------------RC7/RX/DT      PIN 18
+GPIO15----------------------------RC6/TX/CK      PIN 17
+                                  PGM--R1-+      PIN 15          PGM=22
+                                           |
+                                          ///
+(R1) 10K !MCLR pull-up
+(R2) 10K where appropriate (PGM is not present on all devices).
+```
+
+**PLEASE NOTE:**
+
+This pinout does not allow you to program the the controller.
+To program please follow the steps from the [pickle project](https://wiki.kewl.org/dokuwiki/projects:pickle) page
 
 ## Build pickle
 

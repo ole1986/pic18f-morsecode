@@ -15,7 +15,11 @@
             <sourceRootList/>
             <confList>
                 <confElem>
-                    <name>XC8_18F87K22</name>
+                    <name>XC8_18F87K22_BUILD</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>XC8_18F87K22_DEBUG</name>
                     <type>2</type>
                 </confElem>
             </confList>

@@ -196,7 +196,12 @@ void main(void)
     while(true)
     {
         char morsetext[100];
+#ifdef DEBUG
+        strcpy(morsetext, "SOS");
+#else
         UART_RxString(morsetext);
+#endif
+        
         
         int l = strlen(morsetext);
         

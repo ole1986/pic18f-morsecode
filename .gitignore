@@ -1,3 +1,4 @@
 build
-dist
+dist/*
+!dist/XC8_18F87K22_BUILD
 debug

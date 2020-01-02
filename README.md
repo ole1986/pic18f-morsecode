@@ -1,51 +1,77 @@
-PIC18F Morse code serial example
+# PIC18F Morse code serial example
 
 This example is used to send data through UART using pin 18 and 17 (RX,TX) and translate it into morse codes.
 Once the submitted string ends with a "\n" or "\r" the magic starts on pin 6 (RA4)
 
 In addition to this the serial port will return the morse codes as string ("." for short / "-" for long)
 
-Project Owner(s): Ole Koeckemann
-Author(s): Ole Koeckemann
-Hardware Platform: PIC18F26K20
-Debuggers Used: Simulator
-Programmers Used:
-MPLAB Version: 5.30
-C Compiler Version: XC 8
-Final Checksum:
+## Hardware requirements
 
-FILES INCLUDED IN THE PROJECT TREE:
+* 1x PIC18F controller (E.g. PIC18F26K20) or any other compatible chip
+* 1x Raspberry Pi
+* 1x Breadboard
+* 8x male/female jumper wires (RPi -> Breadboard)
+* 7x male/male jumper wires (Breadboard)
+* 4x Resistors (470 R)
+* 3x Resistors (10 K)
+* 1x LED
 
-system.h - Contains custom oscillator configuration function prototypes,
-reset source evaluation function prototypes, and non-peripheral
-microcontroller initialization function prototypes.  It also may contain
-system level #define macros and variables.  This file is included
-by system.c
+## Software requirements
 
-configuration_bits.c - Contains device configuration bit macros.  Refer to
-the comments in configuration_bits.c for instructions on where to get
-information about device configuration bits and their corresponding macros.
+* [MPLAB](https://www.microchip.com/mplab/mplab-x-ide) to compile the source code
+* [pickle](https://wiki.kewl.org/dokuwiki/projects:pickle#installation) to program the controller via raspberry
 
-interrupts.c - This file contains example stubs for interrupts.  The user would
-put the interrupt vectors for their application in interrupts.c.
+### Pinout (RPi)
 
-main.c - This is the main code for the project.  global variables and the
-main() function are located in main.c  The user would put their primary program
-flow in main.c, and the operation should be contained in main.c with an
-infinite loop.
+Please follow the instruction from [pickle project page](https://wiki.kewl.org/dokuwiki/boards:rpi) to properly setup the GPIO pinout.
 
-system.c - Contains custom oscillator configuration functions, reset source
-evaluation functions, and non-peripheral microcontroller initialization
-functions.  Functions in system.c would often be called from main.c during
-device initialization.
+### Build pickle
 
-FILES INCLUDED IN THE PROJECT BUT NOT IN THE PROJECT TREE:
+To build pickle on your Raspberry Pi, please follow the installation instructions from the installation link
 
-#include <htc.h>             /* Global Header File */
-#include <stdint.h>          /* For uint8_t definition */
-#include <stdbool.h>         /* For true/false definition */
-#include "string.h"          /* for strlen method */
-#include "ctype.h"           /* for toupper method */
+### Program the firmware
 
-These files come with the HiTech compiler.  Check the compiler documentation for
-more information on these files.
+To program the firmware onto your controller, all previous steps are necessary.
+
+Download the latest morsecode firmware located in `dist/XC8_18F87K22_BUILD/production/pic18f16K20.X.production.hex` with your raspberry pi
+into your favorite folder.
+
+Add a .pickle file into the same folder with the following content
+
+```
+DEVICE=RPI2
+SLEEP=1
+BITRULES=0x1000
+# !MCLR/VPP        - PI/O G04
+VPP=4
+# PGM              - PI/O G22
+PGM=22
+# PGC CLOCK        - PI/O G25
+PGC=25
+# PGD DATA_I/O     - PI/O G24
+PGD=24
+# Debug level (0=NONE, 1=ERROR, 10=INFO)
+DEBUG=0
+```
+
+Install the firmware from your RPi using the following pickle command
+
+```
+p16 program pic18f16K20.X.production.hex
+```
+
+## Test the program
+
+To test the serial chip connection, I recommend to install minicom on your RPi using the following command
+
+```
+sudo apt-get install minicom
+```
+
+Once minicom is installed use the following command to establish the connection
+
+```
+minicom -b 9600 -o -D /dev/serial0
+```
+
+By entering "sos" the controller should response with "...---..." and LED should blink properly

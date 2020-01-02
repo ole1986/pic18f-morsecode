@@ -34,15 +34,15 @@ sos
 * [MPLAB](https://www.microchip.com/mplab/mplab-x-ide) to compile the source code
 * [pickle](https://wiki.kewl.org/dokuwiki/projects:pickle#installation) to program the controller via raspberry
 
-### Pinout (RPi)
+## Pinout (RPi)
 
 Please follow the instruction from [pickle project page](https://wiki.kewl.org/dokuwiki/boards:rpi) to properly setup the GPIO pinout.
 
-### Build pickle
+## Build pickle
 
 To build pickle on your Raspberry Pi, please follow the installation instructions from the installation link
 
-### Program the firmware
+## Program the firmware
 
 To program the firmware onto your controller, all previous steps are necessary.
 
